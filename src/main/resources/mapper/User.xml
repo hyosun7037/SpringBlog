@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springBlog.repository.UserRepository">
+	
+	<!-- findAll -->
+	<select id="login" resultType="com.example.springBlog.model.User">
+		SELECT id, username, email, profile, role, createDate FROM user 
+	</select>
+	
+	<select id="findByUsername" resultType="com.example.springBlog.model.User">
+		SELECT id, username, email, profile, role, createDate
+		FROM user
+		WHERE username LIKE #{username}
+	</select>
+	
+	<select id="findByUsernameAndPassword" resultType="com.example.springBlog.model.User">
+		SELECT id, username, email, profile, role, createDate
+		FROM user
+		WHERE username LIKE #{username} and password LIKE #{password}
+	</select>
+	
+	<!-- save -->
+ 	<insert id="save">
+		INSERT INTO user(username, password, email, role, createDate) 
+		VALUES(#{username}, #{password}, #{email}, 'USER_ROLE', now())
+	</insert>
+</mapper>
