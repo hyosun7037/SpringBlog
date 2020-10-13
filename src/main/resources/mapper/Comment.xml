@@ -9,4 +9,11 @@
 		SELECT id, title, content, userId, createDate FROM post
 	</select>
  
+ 	<!-- findById -->
+ 	<select id="findById" resultType="com.example.springBlog.dto.ReplyDto">
+ 		SELECT user.username, comment.content, comment.createDate
+		FROM user
+		INNER JOIN comment ON user.id = comment.userId
+		WHERE comment.postId = #{id};
+ 	</select>
 </mapper>

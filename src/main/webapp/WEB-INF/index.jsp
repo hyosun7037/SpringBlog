@@ -4,7 +4,8 @@
 <%@ include file="include/nav.jsp"%>
 <div class="container">
  <form class="form-inline justify-content-start" action="/blog/board?cmd=search" method="get">
-			<input class="form-control mr-sm-2" type="hidden" name="cmd" value="search"> <input class="form-control mr-sm-2" type="hidden" name="page" value="0"> <input class="form-control mr-sm-2 input-lg" type="text" name="keyword"
+			<input class="form-control mr-sm-2" type="hidden" name="cmd" value="search"> 
+			<input class="form-control mr-sm-2" type="hidden" name="page" value="0"> <input class="form-control mr-sm-2 input-lg" type="text" name="keyword"
 				placeholder="Search">
 			<button class="btn btn-primary" type="submit">검색</button>
  </form>
@@ -15,20 +16,18 @@
       <tr>    	
       	<th>글번호</th>
         <th>제목</th>
-        <th>내용</th>
         <th>작성날짜</th> 
       </tr>
     </thead>
      <tbody id ="tbody">
      <!-- postList는 mapper에 작성한 이름 -->
-     <c:forEach var="post" items = "${postList}">
-      <tr>    
-      	<td>${post.id}</td>
-        <td>${post.title}</td>
-        <td>${post.content}</td>
-        <td>${post.createDate}</td>
-      </tr> 
-    </c:forEach>
+    	<c:forEach var="post" items = "${postList}">  
+			      <tr>    
+			      	<td>${post.id}</td>
+			        <td><a href="/board/detail/${post.id}">${post.title}</a></td>
+			        <td>${post.createDate}</td>
+			      </tr> 
+	    </c:forEach>
      </tbody>
   </table>
   </div>
