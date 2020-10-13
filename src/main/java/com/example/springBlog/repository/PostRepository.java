@@ -11,4 +11,5 @@ import com.example.springBlog.model.Post;
 public interface PostRepository {
 	public List<Post> findAll();
 	public BoardDto findById(int id);
+	public void save(Post post);
 }

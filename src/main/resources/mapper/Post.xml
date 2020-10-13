@@ -16,4 +16,10 @@
 		INNER JOIN user ON post.id = user.id
 		WHERE user.id = #{id};
  	</select>
+ 	
+ 		<!-- save -->
+ 	<insert id="save">
+		INSERT INTO post(title, content, userId, createDate) 
+		VALUES(#{title}, #{content}, #{userId}, now());
+	</insert>
 </mapper>

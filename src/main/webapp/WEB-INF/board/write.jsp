@@ -2,14 +2,14 @@
 
 <!-- jstl 태그 라이브러리가 충돌날 수도 있음 -->
 <%@ include file="../include/nav.jsp"%>
-<%@ include file="../include/authentication.jsp"%>
 
 <!-- board안에 들어가는  이름과 같아야함 -->
 <div class="container">
-   <form action="/blog/board?cmd=writeProc" method="POST">
+   <form action="writeProc" method="POST">
    
       <div class="form-group">
-         <label for="title">Title:</label> <input type="text" class="form-control" placeholder="title" id="title" name="title">
+         <label for="title">Title:</label> 
+         <input type="text" class="form-control" placeholder="title" id="title" name="title">
       </div>
       
       <div class="form-group">

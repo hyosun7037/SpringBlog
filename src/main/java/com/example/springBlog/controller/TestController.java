@@ -26,6 +26,8 @@ import com.example.springBlog.util.Script;
 @Controller
 public class TestController {
 	
+	// key:value 는 인자로 객체를 바로 넣어도 알아서 들어감
+	// requestBody는 JSON일 떄
 	@Autowired
 	public UserRepository userRepository;
 	
@@ -109,5 +111,24 @@ public class TestController {
 		return "board/detail";
 	}
 	
+	// 글쓰기 
+	@GetMapping("/board/write")
+	public String boardWrite() {
+		return "board/write";
+	}
+	
+	@PostMapping("/board/writeProc")
+	public String writeProc(Post post, HttpSession session) {
+		
+		User principal = (User)session.getAttribute("principal");
+		
+		Post requestPost = post.builder()
+				.title(post.getTitle())
+				.content(post.getContent())
+				.userId(principal.getId())
+				.build();
+		postRepository.save(requestPost);
+		return "redirect:/";
+	}
 	
 }
