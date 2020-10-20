@@ -11,15 +11,26 @@
  
  	<!-- findById -->
  	<select id="findById" resultType="com.example.springBlog.dto.BoardDto">
- 		SELECT post.id, user.username, post.title, post.content, user.id, post.createDate
+ 		SELECT post.id, post.userId, user.username, post.title, post.content, user.id, post.createDate
 		FROM post
 		INNER JOIN user ON post.id = user.id
 		WHERE user.id = #{id};
  	</select>
  	
- 		<!-- save -->
+ 	<!-- save -->
  	<insert id="save">
 		INSERT INTO post(title, content, userId, createDate) 
 		VALUES(#{title}, #{content}, #{userId}, now());
 	</insert>
+	
+	<!-- deleteById -->
+	<delete id="deleteOne">
+		delete from post where id = #{id}
+	</delete>
+	
+	<!-- update -->
+	<update id="updateOne">
+		update post set title = #{title}, content= #{content}  
+		WHERE id = #{id}
+	</update>
 </mapper>

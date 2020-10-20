@@ -3,10 +3,9 @@
 <%@ include file="../include/nav.jsp"%>
 
 <div class="container">
-
 	<c:if test="${sessionScope.principal.id == detailDto.boardDto.userId}">
-		<a href="/blog/board?cmd=update&id=${detailDto.boardDto.id}" class="btn btn-warning">수정</a>
-		<button class="btn btn-danger" onclick="deleteById(${detailDto.boardDto.id})">삭제</button>
+		<a href="/board/update/${detailDto.boardDto.id}" class="btn btn-warning">수정</a>
+		<button class="btn btn-danger" onclick="deleteOne(${detailDto.boardDto.id})">삭제</button>
 	</c:if>
 
 	<br /> <br />
@@ -72,5 +71,46 @@
 </div>
 
 <script src="/blog/js/detail.js"></script>
+<script>
+		//deleteOne
+		function deleteOne(id){
+			$.ajax({
+			       type:"DELETE",
+			       url:"/post/"+id, // post만 넣기
+			       dataType: "text"// 서버로부터 응답받을 때 데이터 타입
+			    }).done((result)=>{ 
+			  	 if(result == 1){ // statusCode는 int값
+			  		 alert("삭제성공");
+			  		 location.href="/";
+			  	 }else{
+			  		 alert("권한없음:삭제실패");
+			  	 }
+			       console.log(result); // 자바스크립트 오브젝트가 되서 날라옴
+			    }).fail((error)=>{ // 실패시 ajax 통신이 안된 것
+			       console.log(error);   
+			    });
+		},
+
+		function updateOne(id){ // 회원가입 로직 실행		
+			$.ajax({
+				type:"PUT",
+				url:"/post/"+id, // post만 넣기
+				data:JSON.stringify(data),
+				contentType:"application/json; charset=utf-8",
+				dataType: "json"// 서버로부터 응답받을 때 데이터 타입
+			}).done((resp)=>{ 
+				alert("수정성공");
+				location.href="/post/"+id;
+				console.log(resp); // 자바스크립트 오브젝트가 되서 날라옴
+			}).fail((error)=>{ // 실패시 ajax 통신이 안된 것
+				alert("수정실패");
+				console.log(error);	
+			});
+		
+		}
+			
+
+ 
+ </script>
 <script src="/blog/js/reply.js"></script>
 <%@ include file="../include/footer.jsp"%>

@@ -12,4 +12,6 @@ public interface PostRepository {
 	public List<Post> findAll();
 	public BoardDto findById(int id);
 	public void save(Post post);
+	public int deleteOne(int id);
+	public int updateOne(Post post);
 }

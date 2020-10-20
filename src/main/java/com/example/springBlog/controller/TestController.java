@@ -7,10 +7,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.springBlog.dto.BoardDto;
@@ -70,7 +73,6 @@ public class TestController {
 		}
 	}
 	
-	
 	// 로그인 확인
 	// form 사용시 자동으로 객체안에 이름에 맞춰서 들어가짐, request를 사용하면 안된다.
 	@PostMapping("/loginProc")
@@ -129,6 +131,32 @@ public class TestController {
 				.build();
 		postRepository.save(requestPost);
 		return "redirect:/";
+	}
+	
+	// 글 삭제
+	@DeleteMapping("/post/{id}")
+	public @ResponseBody String deleteOne (@PathVariable int id) {
+		int result = postRepository.deleteOne(id);
+		if(result == 1) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
+	// 글 수정
+	@PostMapping("/post") // ajax 방식으로 받을 때는 putMapping
+	public String updateOne(Post post) { // form으로 받을 때는 key:value으로 받으니까 @ResquestBody를 안넣으면 된다.
+		int result = postRepository.updateOne(post);
+		return "redirect:/board/detail/" + post.getId();
+	}
+	
+	// update 페이지 이동
+	@GetMapping("/board/update/{id}")
+	public String update(@PathVariable int id, Model model) {
+		BoardDto boardDto = postRepository.findById(id); 
+		model.addAttribute("boardDto", boardDto);
+		return "board/update";
 	}
 	
 }
